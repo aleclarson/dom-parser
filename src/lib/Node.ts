@@ -31,6 +31,10 @@ export class Node {
 
   parentNode: Node | null;
 
+  nextSibling: Node | null;
+
+  prevSibling: Node | null;
+
   attributes: NodeAttribute[];
 
   readonly isSelfCloseTag: boolean;
@@ -52,6 +56,8 @@ export class Node {
     this.nodeName = nodeType === NodeType.element ? nodeName : '#text';
     this.childNodes = childNodes || [];
     this.parentNode = parentNode;
+    this.nextSibling = null;
+    this.prevSibling = null;
     this.attributes = attributes || [];
   }
 

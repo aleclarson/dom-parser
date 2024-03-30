@@ -139,7 +139,7 @@ function createElementNode(tag: string, parentNode: Node | null) {
     selfCloseTag,
   });
 
-  parentNode?.childNodes.push(elementNode);
+  append(parentNode, elementNode);
   return elementNode;
 }
 
@@ -162,6 +162,17 @@ function createTextNode(text: string, parentNode: Node | null) {
     text,
     parentNode,
   });
-  parentNode?.childNodes.push(textNode);
+  append(parentNode, textNode);
   return textNode;
+}
+
+function append(parentNode: Node | null, childNode: Node) {
+  if (parentNode) {
+    const prevSibling = parentNode.childNodes[parentNode.childNodes.length - 1];
+    if (prevSibling) {
+      childNode.prevSibling = prevSibling;
+      prevSibling.nextSibling = childNode;
+    }
+    parentNode.childNodes.push(childNode);
+  }
 }
