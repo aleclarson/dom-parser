@@ -74,23 +74,33 @@ function find(html: string, conditionFn: (node: Node) => boolean, onlyFirst: boo
 
 function* domGenerator(html: string) {
   const tags = getAllTags(html);
-  let cursor: Node | null = null;
+  let parentNode: Node | null = null;
+  let prevSibling: Node | null = null;
 
   for (let i = 0, l = tags.length; i < l; i++) {
     const tag = tags[i];
-    const node = createNode(tag, cursor);
+    const node = createNode(tag, parentNode);
 
-    cursor = node || cursor;
+    if (node) {
+      if (!parentNode) {
+        if (prevSibling) {
+          prevSibling.nextSibling = node;
+          node.prevSibling = prevSibling;
+        }
+        prevSibling = node;
+      }
+      parentNode = node;
+    }
 
-    if (isElementComposed(cursor, tag)) {
-      yield cursor;
-      cursor = cursor.parentNode;
+    if (isElementComposed(parentNode, tag)) {
+      yield parentNode;
+      parentNode = parentNode.parentNode;
     }
   }
 
-  while (cursor) {
-    yield cursor;
-    cursor = cursor.parentNode;
+  while (parentNode) {
+    yield parentNode;
+    parentNode = parentNode.parentNode;
   }
 }
 
