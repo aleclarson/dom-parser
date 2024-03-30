@@ -49,6 +49,10 @@ export class Dom {
   getElementsByAttribute(attributeName: string, attributeValue: string) {
     return this.find((node) => node.getAttribute(attributeName) === attributeValue);
   }
+
+  [Symbol.iterator]() {
+    return domGenerator(this.rawHTML);
+  }
 }
 
 // private
