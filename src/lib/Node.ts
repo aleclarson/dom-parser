@@ -136,6 +136,16 @@ export class Node {
     return node;
   }
 
+  contains(node: Node | null) {
+    while (node) {
+      if (node === this) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  }
+
   static ELEMENT_NODE = NodeType.element;
 
   static TEXT_NODE = NodeType.text;
