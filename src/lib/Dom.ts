@@ -157,10 +157,10 @@ function parseAttributes(tag: string) {
   return (tag.match(attrRegExp) || []).map((attributeString) => {
     splitAttrRegExp.lastIndex = 0;
     const exec = splitAttrRegExp.exec(attributeString) || [];
-    const [, name = '', value = '']: string[] = exec;
+    const [, name = '', value]: string[] = exec;
     return new NodeAttribute({
       name: name.trim(),
-      value: value.trim().replace(attributeQuotesExp, ''),
+      value: value?.trim().replace(attributeQuotesExp, ''),
     });
   });
 }

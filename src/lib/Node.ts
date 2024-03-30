@@ -108,7 +108,7 @@ export class Node {
 
   getAttribute(name: string) {
     const attribute = this.attributes.find((a) => a.name === name);
-    return attribute ? attribute.value : null;
+    return attribute ? attribute.value ?? '' : null;
   }
 
   getElementsByTagName(tagName: string) {
