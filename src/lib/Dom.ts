@@ -139,7 +139,7 @@ function createElementNode(tag: string, parentNode: Node | null) {
     selfCloseTag,
   });
 
-  parentNode?.childNodes?.push(elementNode);
+  parentNode?.childNodes.push(elementNode);
   return elementNode;
 }
 
@@ -162,6 +162,6 @@ function createTextNode(text: string, parentNode: Node | null) {
     text,
     parentNode,
   });
-  parentNode?.childNodes?.push(textNode);
+  parentNode?.childNodes.push(textNode);
   return textNode;
 }
