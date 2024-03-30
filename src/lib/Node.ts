@@ -128,6 +128,14 @@ export class Node {
     );
   }
 
+  getRootNode() {
+    let node: Node = this;
+    while (node.parentNode) {
+      node = node.parentNode;
+    }
+    return node;
+  }
+
   static ELEMENT_NODE = NodeType.element;
 
   static TEXT_NODE = NodeType.text;
